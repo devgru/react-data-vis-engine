@@ -1,0 +1,20 @@
+exports[`FillParentSvg should initialize at all 1`] = `
+<svg
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  } />
+`;
+
+exports[`FillParentSvg should pass props 1`] = `
+<svg
+  class="my-svg"
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  } />
+`;

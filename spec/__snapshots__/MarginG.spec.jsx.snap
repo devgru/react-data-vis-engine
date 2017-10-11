@@ -1,0 +1,13 @@
+exports[`MarginG should initialize at all 1`] = `
+<g
+  transform="translate(0,0)">
+  <circle />
+</g>
+`;
+
+exports[`MarginG should work with props 1`] = `
+<g
+  transform="translate(10,10)">
+  <circle />
+</g>
+`;

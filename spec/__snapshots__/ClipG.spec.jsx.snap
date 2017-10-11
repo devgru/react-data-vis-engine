@@ -1,0 +1,16 @@
+exports[`ClipG should work with props 1`] = `
+<g>
+  <defs>
+    <clipPath
+      id="clip.clip">
+      <rect
+        height={100}
+        width={100} />
+    </clipPath>
+  </defs>
+  <g
+    clipPath="url(#clip.clip)">
+    <circle />
+  </g>
+</g>
+`;
