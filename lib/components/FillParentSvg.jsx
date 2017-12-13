@@ -5,13 +5,14 @@ import clone from 'lodash.clone';
 export default class FillParentSvg extends Component {
   constructor(props) {
     super(props);
-    this.handleResize = () => {
-      this.props.onSizeUpdate({
-        width: this.node.clientWidth,
-        height: this.node.clientHeight,
-      });
-    };
   }
+
+  handleResize = () => {
+    this.props.onSizeUpdate({
+      width: this.node.clientWidth,
+      height: this.node.clientHeight,
+    });
+  };
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
