@@ -94,7 +94,7 @@ export default class ZoomableG extends Component {
       }
     } else {
       console.warn(
-        'ChartCore.ZoomableG: ' +
+        'ZoomableG: ' +
         'component provides "mouseHandlerRef" callback in renderContext, ' +
         'use it as described in docs/components/ZoomableG.md',
       );
