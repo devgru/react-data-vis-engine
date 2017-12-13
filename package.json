@@ -40,7 +40,8 @@
     "rollup-plugin-uglify-es": "^0.0.1",
     "round-to-precision": "^1.0.3",
     "uglify-es": "3",
-    "webpack": "1"
+    "webpack": "1",
+    "webpack-bundle-analyzer": "^2.9.1"
   },
   "scripts": {
     "build": "webpack -p",
