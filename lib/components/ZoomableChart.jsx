@@ -33,6 +33,7 @@ export default class ZoomableChart extends Component {
       xPadding, yPadding,
       limits,
       zoomState,
+      minScaleFactor,
       maxScaleFactor,
       onZoomStateChange,
       children,
@@ -41,6 +42,7 @@ export default class ZoomableChart extends Component {
     const zoomableGProps = {
       limits,
       zoomState,
+      minScaleFactor,
       maxScaleFactor,
       onZoomStateChange,
     };
@@ -132,6 +134,7 @@ ZoomableChart.defaultProps = {
 
   limits: undefined,
   zoomState: undefined,
+  minScaleFactor: undefined,
   maxScaleFactor: undefined,
   onZoomStateChange: undefined,
 };
@@ -164,6 +167,7 @@ ZoomableChart.propTypes = {
     }),
     scale: PropTypes.number,
   }),
+  minScaleFactor: PropTypes.number,
   maxScaleFactor: PropTypes.number,
   onZoomStateChange: PropTypes.func,
 };

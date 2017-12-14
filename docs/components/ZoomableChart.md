@@ -10,7 +10,7 @@
 
 ## Свойства
 
-Свойства `limits`, `zoomState`, `maxScaleFactor`, `onZoomStateChange` передаются в компонент `ZoomableG` без изменений и имеют значение по умолчанию `undefined`. Про эти свойства см. [ZoomableG](./ZoomableG.md).
+Свойства `limits`, `zoomState`, `minScaleFactor`, `maxScaleFactor`, `onZoomStateChange` передаются в компонент `ZoomableG` без изменений и имеют значение по умолчанию `undefined`. Про эти свойства см. [ZoomableG](./ZoomableG.md).
 
 - строка `id`, используется для создания идентификаторов некоторых элементов внутри графика, по умолчанию — случайная строка;
 - массив из двух чисел `xDomain`, диапазон значений данных по оси абсцисс;

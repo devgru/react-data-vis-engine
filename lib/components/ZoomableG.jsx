@@ -47,10 +47,10 @@ export default class ZoomableG extends Component {
   }
 
   applyProps(props) {
-    const { maxScaleFactor, zoomState } = props;
+    const { minScaleFactor, maxScaleFactor, zoomState } = props;
 
     this.d3Zoom
-      .scaleExtent([1, maxScaleFactor]);
+      .scaleExtent([minScaleFactor, maxScaleFactor]);
 
     this.applyZoomState(zoomState);
   }
@@ -60,12 +60,11 @@ export default class ZoomableG extends Component {
   }
 
   getZoomState(scales) {
-    let obj = GenerateZoomObject(
+    return GenerateZoomObject(
       d3.zoomTransform(this.node).k,
       this.props,
       scales,
     );
-    return obj;
   }
 
   fitZoomIntoLimitsAndUpdateState() {
@@ -125,9 +124,8 @@ ZoomableG.propTypes = {
 
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
-  /* eslint-disable react/no-unused-prop-types */
+  minScaleFactor: PropTypes.number,
   maxScaleFactor: PropTypes.number,
-  /* eslint-enable react/no-unused-prop-types */
   limits: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number),
@@ -145,6 +143,7 @@ ZoomableG.propTypes = {
 ZoomableG.defaultProps = {
   children: null,
 
+  minScaleFactor: 1,
   maxScaleFactor: 16,
   limits: {
     x: [-Infinity, Infinity],

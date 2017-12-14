@@ -51,9 +51,13 @@ class ZoomDemoChart extends Component {
 
     return (
       <ZoomableChart
-        xDomain={x} yDomain={y}
-        maxScaleFactor={4} limits={limits}
-        zoomState={zoomState} onZoomStateChange={onZoomStateChange}
+        xDomain={x}
+        yDomain={y}
+        minScaleFactor={0.5}
+        maxScaleFactor={4}
+        limits={limits}
+        zoomState={zoomState}
+        onZoomStateChange={onZoomStateChange}
       >{
         // В качестве потомка в элемент ZoomableChart передаётся функция.
         // Функция получает renderContext от ZoomableChart и используя его содержимое
