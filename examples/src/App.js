@@ -6,8 +6,6 @@ import { line } from 'd3-shape';
 import ZoomableChart from '../../lib/components/ZoomableChart';
 import CalculateExtents from '../../lib/utilities/extents/CalculateExtents';
 
-console.log(ZoomableChart);
-
 class ZoomDemoChart extends Component {
   constructor(props) {
     super(props);
@@ -30,26 +28,16 @@ class ZoomDemoChart extends Component {
       },
       scale: 3,
     };
+
+    setInterval(() => {
+      this.forceUpdate();
+    }, 1000);
   }
 
   render() {
     const { data, zoomState } = this;
 
-    // График знает свои размеры и передаёт их в шкалу.
-    // Но помимо размеров в пикселях графику необходимо знать разброс входных значений.
-    //
-    // Самый простой способ расчитать разброс — такой код:
-    // import { extent } form 'd3-array';
-    // const x = extent(data.map((d) => d.x));
-    // const y = extent(data.map((d) => d.y));
-
-    // Однако, для того чтобы значения не «прилипали» к краям рабочей области графика,
-    // мы добавляем к ним отступы в 10-15% от разброса.
-    // В проекте для этого есть утилита, CalculateExtents:
     const { x, y } = CalculateExtents(data, 0.1);
-    // Особенность использования — утилита принимает на вход массив объектов с полями x, y.
-    // В данном примере данные и так имеют такую структуру, однако в реальности
-    // может потребоваться дополнительное преобразование.
 
     const limits = {
       x: [-Infinity, Infinity],
