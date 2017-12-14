@@ -20,13 +20,13 @@ module.exports = {
     library: 'ReactChartEngine'
   },
 
-  plugins: [new BundleAnalyzerPlugin({
+  plugins: [/*new BundleAnalyzerPlugin({
     analyzerMode: 'server',
     // Host that will be used in `server` mode to start HTTP server.
     analyzerHost: '127.0.0.1',
     // Port that will be used in `server` mode to start HTTP server.
     analyzerPort: 8888,
-  })],
+  })*/],
 
   externals,
 
