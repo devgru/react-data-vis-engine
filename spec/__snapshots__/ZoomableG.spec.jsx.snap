@@ -1,0 +1,14 @@
+exports[`ZoomableG should work with props 1`] = `
+<g>
+  <g>
+    <text>
+      0
+      1
+    </text>
+    <text>
+      0
+      1
+    </text>
+  </g>
+</g>
+`;
