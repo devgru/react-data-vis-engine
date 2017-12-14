@@ -65,7 +65,6 @@ export default class ZoomableG extends Component {
       this.props,
       scales,
     );
-    console.log('ZO', obj);
     return obj;
   }
 
