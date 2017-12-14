@@ -24,42 +24,49 @@ export default class ZoomableG extends Component {
   constructor(props) {
     super(props);
 
-    const zoom = d3.zoom()
+    this.d3Zoom = d3.zoom()
       .on('zoom', () => requestAnimationFrame(() => {
         this.fitZoomIntoLimitsAndUpdateState();
         this.forceUpdate();
       }));
 
-    this.state = { zoom };
-
-    this.ref = (node) => {
-      this.node = node;
-      if (node) {
-        this.d3node = select(node);
-        this.d3node.call(this.state.zoom);
-      }
-    };
+    this.applyProps(props);
   }
 
+  ref = (node) => {
+    this.node = node;
+    if (node) {
+      this.d3Node = select(node);
+      this.d3Node.call(this.d3Zoom);
+      this.applyZoomState(this.props.zoomState)
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
-    const { maxScaleFactor, zoomState } = nextProps;
+    this.applyProps(nextProps);
+  }
+
+  applyProps(props) {
+    const { maxScaleFactor, zoomState } = props;
+
+    this.d3Zoom
+      .scaleExtent([1, maxScaleFactor]);
 
     this.applyZoomState(zoomState);
-
-    this.state.zoom
-      .scaleExtent([1, maxScaleFactor]);
   }
 
   componentWillUnmount() {
-    this.d3node = undefined;
+    this.d3Node = undefined;
   }
 
   getZoomState(scales) {
-    return GenerateZoomObject(
+    let obj = GenerateZoomObject(
       d3.zoomTransform(this.node).k,
       this.props,
       scales,
     );
+    console.log('ZO', obj);
+    return obj;
   }
 
   fitZoomIntoLimitsAndUpdateState() {
@@ -78,7 +85,7 @@ export default class ZoomableG extends Component {
   }
 
   applyZoomState(zoomState) {
-    if (this.d3node) {
+    if (this.d3Node) {
       const [x, y] = GenerateZoomTranslate(this.props, zoomState);
       const newTransform = d3.zoomIdentity
         .translate(x, y)
@@ -86,18 +93,12 @@ export default class ZoomableG extends Component {
 
       const transform = d3.zoomTransform(this.node);
       if (!areTransformsEqual(transform, newTransform)) {
-        this.state.zoom
+        this.d3Zoom
           .transform(
-            this.d3node,
+            this.d3Node,
             newTransform,
           );
       }
-    } else {
-      console.warn(
-        'ZoomableG: ' +
-        'component provides "mouseHandlerRef" callback in renderContext, ' +
-        'use it as described in docs/components/ZoomableG.md',
-      );
     }
   }
 
