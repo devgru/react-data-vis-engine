@@ -1,9 +1,7 @@
 # react-chart-engine
 
-Используйте компоненты `ZoomableChart` или `BasicChart` для создания графиков, по аналогии с примерами в папке [lib/examples](./lib/examples).
+Use `ZoomableChart` or `BasicChart` components to build charts, as shown in [lib/examples](./lib/examples).
 
-## Документация
+## Docs
 
-Описание экспортируемых компонент находится в папке [docs/components](./docs/components), пример использования утилит ядра — в файле [./lib/examples/ZoomDemoChart.jsx](lib/examples/ZoomDemoChart.jsx).
-
-Описание решаемых задач и абстрагированный пример использования графика находятся в директории [docs/meta](./docs/meta).
+Exported components are described in [docs/components](./docs/components) directory. Check [./lib/examples/ZoomDemoChart.jsx](lib/examples/ZoomDemoChart.jsx) for example of utils usage.
