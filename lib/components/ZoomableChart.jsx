@@ -100,7 +100,7 @@ export default class ZoomableChart extends Component {
                     width={innerWidth}
                     height={innerHeight}
                   />
-                  <ClipG id={chartId} width={innerWidth} height={innerHeight}>
+                  <ClipG id={chartId + '.clip'} width={innerWidth} height={innerHeight}>
                     <g ref={mouseHandlerRef}>
                       <rect width={innerWidth} height={innerHeight} style={backStyle} />
                       {chart}

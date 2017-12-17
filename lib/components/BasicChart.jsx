@@ -56,7 +56,7 @@ export default class BasicChart extends Component {
             width={innerWidth}
             height={innerHeight}
           />
-          <ClipG id={chartId} width={innerWidth} height={innerHeight}>
+          <ClipG id={chartId + '.clip'} width={innerWidth} height={innerHeight}>
             {children(renderContext)}
           </ClipG>
         </MarginG>

@@ -5,11 +5,11 @@ function ClipG({ id, width, height, children }) {
   return (
     <g>
       <defs>
-        <clipPath id={`${id}.clip`}>
+        <clipPath id={id}>
           <rect width={width} height={height} />
         </clipPath>
       </defs>
-      <g clipPath={`url(#${id}.clip)`}>
+      <g clipPath={`url(#${id})`}>
         {children}
       </g>
     </g>
