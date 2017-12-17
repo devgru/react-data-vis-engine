@@ -1,24 +1,24 @@
 # BasicAxes
 
-Компонент отрисовывает стандартные оси с сеткой, используемые в графиках.
+Renders axes and pseudo-grids in a `g` element.
 
-Компонент рендерит `g`-элемент.
+Uses axes from `react-d3-components` that are similar to axes in `d3`.
 
-Компонент использует компоненты-оси из пакета `react-d3-components`, аналогичные осям создаваемым библиотекой `d3`.
+D3 scales are used to determine positions and sizes of axes, ticks and grid lines.
 
-Настроенные шкалы используются для вычисления положения и размеров осей, размещения подписей и создания псевдосетки из их засечек.
+## Children
 
-## Свойства
+This component accepts no children.
 
-Компонент не принимает вложенных элементов.
+## Props
 
-Все свойства **обязательны**.
+All props are **required**.
 
-- [шкала](https://github.com/d3/d3-scale#continuous-scales) `xScale` для оси абсцисс;
-- [шкала](https://github.com/d3/d3-scale#continuous-scales) `yScale` для оси ординат;
-- число `xPadding`, горизонтальный отступ от оси до текста для оси ординат;
-- число `yPadding`, вертикальный отступ от оси до текста для оси абсцисс;
-- число `width`, ширина «рабочей» зоны графика;
-- число `height`, высота «рабочей» зоны графика.
+- [scale](https://github.com/d3/d3-scale#continuous-scales) `xScale` for X axis;
+- [scale](https://github.com/d3/d3-scale#continuous-scales) `yScale` for Y axis;
+- number `xPadding`, representing horizontal padding between ticks labels and axis line of Y axis;
+- number `yPadding`, representing vertical padding between ticks labels and axis line of X axis;
+- number `width`, width of chart content;
+- number `height`, height of chart content.
 
-Шкалы могут быть созданы с помощью `d3` версий 3 и 4.
+You can use scales from `d3` v3 or v4.

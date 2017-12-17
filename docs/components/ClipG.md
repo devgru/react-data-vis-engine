@@ -1,15 +1,19 @@
 # ClipG
 
-Компонент используется для ограничения «рабочей» зоны графика в которой происходит отрисовка содержимого визуалиации. Исключает возможность графических элементов выходить за границы графика (например, «залезать» на оси).
+Renders `g` element, used to clip chart contents. Prevents chart contents from 'overflow'.
 
-Компонент рендерит `g`-элемент. Потомки, переданные в элемент `ClipG` будут помещены во вложенный `g`, с зоной видимости ограниченной прямоугольным `clip-path`, с размерами `width` и `height`.
+## Children
 
-Также создаёт элемент `clip-path` с `id` равным переданному свойству `id` с добавлением строки `.clip`. Этот `clip-path` можно использовать так же для других векторных элементов на странице.
+Children will be rendered in `g` element, clipped by rectangular `clip-path` with `width` and `height` dimensions.
 
-## Свойства
+## Props
 
-Все свойства **обязательны**.
+All props are **required**.
 
-- строка `id`, уникальный в рамках страницы идентификатор;
-- число `width`, ширина «рабочей» зоны графика;
-- число `height`, высота «рабочей» зоны графика.
+- string `id`, unique identifier;
+- number `width`, chart contents width;
+- number `height`, chart contents height.
+
+## Side effects
+
+`ClipG` renders `clip-path` element, identified by `id` being equal to `id` property. This `clip-path` can be used to clip other page elements.

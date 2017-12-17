@@ -1,20 +1,24 @@
 # ZoomableChart
 
-График с возможностью зума.
+Renders zoomable chart in `svg` element with axes, borders, pseudo-grid and paddings.
 
-Создаёт `svg`-элемент с осями, границами, сеткой и отступами.
+[Component usage example](../../lib/examples/ZoomDemoChart.jsx).
 
-В качестве потомка принимает функцию, генератор элементов графика. Функция имеет сигнатуру `generateChart({id, xScale, yScale, width, height})` и должна возвращать элемент для отрисовки или объект с полями `{chart, back, front}`, каждое из которых может содержать элемент для отрисовки.
+## Children
 
-[Пример использования](../../lib/examples/ZoomDemoChart.jsx) компонента.
+This component accepts single child, which should be a function with signature `generateChart({id, xScale, yScale, width, height})`. This function should return React-element with rendered chart contents or an object with `chart`, `back` and `front` fields, each of them containing React-element if defined.
 
-## Свойства
+This approach allows you rendering contents behind axes (`back`), atop of axes (`chart`) and atop of chart (`front`). Please note that only `chart` element is clipped.
 
-Свойства `limits`, `zoomState`, `minScaleFactor`, `maxScaleFactor`, `onZoomStateChange` передаются в компонент `ZoomableG` без изменений и имеют значение по умолчанию `undefined`. Про эти свойства см. [ZoomableG](./ZoomableG.md).
+This function is required.
 
-- строка `id`, используется для создания идентификаторов некоторых элементов внутри графика, по умолчанию — случайная строка;
-- массив из двух чисел `xDomain`, диапазон значений данных по оси абсцисс;
-- массив из двух чисел `yDomain`, диапазон значений данных по оси ординат;
-- число `xPadding`, горизонтальный отступ от оси до текста для оси ординат;
-- число `yPadding`, вертикальный отступ от оси до текста для оси абсцисс;
-- объект `margin`, с числовыми полями `left`, `top`, `right` и `bottom`, отступы графика.
+## Props
+
+Props `limits`, `zoomState`, `minScaleFactor`, `maxScaleFactor`, `onZoomStateChange` are passed to `ZoomableG` as is, their default value being `undefined`, allowing `ZoomableG` to use its defaults. See [ZoomableG](./ZoomableG.md).
+
+- string `id` is used to create identifiers for several elements within chart, default value is random string;
+- array of two numbers `xDomain`, data domain for X axis;
+- array of two numbers `yDomain`, data domain for Y axis;
+- number `xPadding`, representing horizontal padding between ticks labels and axis line of Y axis;
+- number `yPadding`, representing vertical padding between ticks labels and axis line of X axis;
+- object `margin`, containing fields `left`, `top`, `right` and `bottom`, representing chart margins.

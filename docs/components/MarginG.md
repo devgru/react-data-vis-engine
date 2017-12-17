@@ -1,9 +1,12 @@
 # MarginG
 
-Компонент рендерит `g`-элемент с отступом слева и сверху.
-Используется для сдвига системы координат вложенных элементов.
+Renders `g` element, translated by specified props.
 
-## Свойства
+## Children
 
-- число `top`, отступ сверху;
-- число `left`, отступ слева.
+Children are rendered directly in `g` element.
+
+## Props
+
+- number `top`, top offset;
+- number `left`, left offset.

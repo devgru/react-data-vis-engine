@@ -1,12 +1,16 @@
 # ZoomableG
 
-Компонент рендерит `g`-элемент, отвечающий за управление рабочей областью с помощью мыши и сохраняющий состояние зума.
+Renders `g` element, responsible for zoom and pan control of chart contents.
 
-Используется для создания возможности зумить график.
+## Children
 
-В качестве потомка принимает функцию, генератор элементов графика. Функция имеет сигнатуру `generateChart({xScale, yScale, mouseHandlerRef})` и должна возвращать react-элементы для отрисовки.
+This component accepts single child, which should be a function with signature `generateZoomedContents({xScale, yScale, mouseHandlerRef})`. This function should return React-element with rendered chart contents.
 
-Один из дочерних элементов должен использовать колбек `mouseHandlerRef` в качестве значения свойства `ref`, этот элемент и все его потомки будут реагировать на использование мыши (перетаскивание, использования колесика).
+You should use `mouseHandlerRef` callback in `generateZoomedContents` call as a `ref` of some element. This element and its children will respond to mouse events.
+
+This function is required.
+
+## Example
 
 ```jsx
 
@@ -23,10 +27,9 @@ function render({ xScale, yScale }) {
 
         return (
           <g ref={mouseHandlerRef}>
-            <!-- Прямоугольник, «растягивающий» элемент g
-            до размеров рабочей области графика -->
+            <!-- This rectangle makes g big enough to handle events within whole chart -->
             <rect width={width} height={height} style={backStyle} />
-            <!-- далее рисуем содержимое графика -->
+            <!-- Here we can draw chart contents -->
           </g>
         );
       }}
@@ -37,22 +40,20 @@ function render({ xScale, yScale }) {
 ```
 
 
-## Свойства
+## Props
 
-Свойства `xScale` и `yScale` — обязательные, остальные свойства имеют значения по умолчанию.
+`xScale` and `yScale` props are required, all other props have default values.
 
-Свойства `zoomState` и `onZoomStateChange` используются для управления зумом. Они полезны, если окружение графика может менять состояние зума (хоткей `Esc` для сброса в дефолт, кнопки `+`/`-` для изменения масштаба и т.п.) или задаёт состояние зума по умолчанию (отображение сохранённого состояния графика, сохраняющего зум).
+`zoomState` and `onZoomStateChange` props are used to control zoom and pan. Use them if you want to control chart zoom state from outer world (like `Esc` key to reset zoom, `+`/`-` buttons to increase/decrease scale etc.) or set default zoom state.
 
-Если график должен поддерживать перетаскивание и зум, но не должен поддерживать внешнее управление зумом, использовать свойства `zoomState` и `onZoomStateChange` не потребуется.
+If you just want zoomable chart without external controls, you can ignore `zoomState` and `onZoomStateChange` props.
 
-### Список свойств
+- [scale](https://github.com/d3/d3-scale#continuous-scales) `xScale` for X axis;
+- [scale](https://github.com/d3/d3-scale#continuous-scales) `yScale` for Y axis;
+- number `minScaleFactor` limiting minimal scale factor, default value is 1;
+- number `maxScaleFactor` limiting maximal scale factor, default value is 16;
+- object `limits` with `x` and `y` fields, each containing array of two numbers, representing data range, default value is `{ x: [-∞, ∞], y: [-∞, ∞] }`;
+- object `zoomState` with `scale` (number) and `center` (object with numeric fields `x` и `y`), default value is `{ scale: 1, center: { x: 0.5, y: 0.5 }}`; coordinate are represented as fraction; if you pass this prop, make sure to update its value after `onZoomStateChange` is triggered;
+- callback `onZoomStateChange`, a function with signature `onZoomStateChange(newZoomState)`, called by component on zoom state change, default value is NOOP.
 
-- [шкала](https://github.com/d3/d3-scale#continuous-scales) `xScale` для оси абсцисс;
-- [шкала](https://github.com/d3/d3-scale#continuous-scales) `yScale` для оси ординат;
-- число `minScaleFactor` для ограничение минимальной глубины зума, по умолчанию — 1, т.е. полотно может быть отдалено только до изначального масштаба;
-- число `maxScaleFactor` для ограничение максимальной глубины зума, по умолчанию — 16, т.е. полотно может быть приближено в 16 раз;
-- объект `limits` с полями `x` и `y`, в каждом поле — массив из двух чисел, диапазон значений данных в котором будет происходить зум, по умолчанию — `{ x: [-∞, ∞], y: [-∞, ∞] }`;
-- объект `zoomState` с полями `scale` (число) и `center` (объект с числовыми полями `x` и `y`), по умолчанию — `{ scale: 1, center: { x: 0.5, y: 0.5 }}`; координаты считаются в процентах от единицы; если свойство используется, его значение должно быть обновлено после вызова компонентом `onZoomStateChange`;
-- колбек `onZoomStateChange`, функция с сигнатурой `onZoomStateChange(newZoomState)`, вызывается компонентом при изменении состояния зума по сравнению с переданным в `props`, по умолчанию — NOP.
-
-Шкалы могут быть созданы с помощью `d3` версий 3 и 4.
+You can use scales from `d3` v3 or v4.

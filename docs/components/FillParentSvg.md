@@ -1,16 +1,18 @@
 # FillParentSvg
 
-Компонент создаёт `svg`-элемент, заполняющий свой контейнер.
+Renders `svg` element filling its container.
 
-Потомки компонента попадают в `svg`-элемент.
+On page resize `onSizeUpdate` callback will be called.
 
-При изменении размеров страницы компонент вызывает колбек `onSizeUpdate`.
+## Children
 
-## Свойства
+Children are rendered directly in `svg` element.
 
-- `onSizeUpdate`, колбек с сигнатурой `onSizeUpdate({width, height})`;
-- остальные свойства становятся свойствами создаваемого элемента `svg`.
+## Props
 
-## Побочные эффекты
+- callback `onSizeUpdate`, signature is `onSizeUpdate({width, height})`;
+- all other props are passed to `svg` element.
 
-При монтировании компонент начинает получать события `resize` объекта `window`.
+## Side effects
+
+This component listens for `resize` events on `window` object.
