@@ -2,6 +2,21 @@ exports[`ZoomableG should work with props 1`] = `
 <g>
   <g>
     <text>
+      -0.06666666666666665
+      0.26666666666666666
+    </text>
+    <text>
+      -0.06666666666666665
+      0.26666666666666666
+    </text>
+  </g>
+</g>
+`;
+
+exports[`ZoomableG should work without zoomState 1`] = `
+<g>
+  <g>
+    <text>
       0
       1
     </text>

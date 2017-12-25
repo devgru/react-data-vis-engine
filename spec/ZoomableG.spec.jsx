@@ -6,6 +6,26 @@ import renderer from 'react-test-renderer';
 import {scaleLinear} from 'd3-scale';
 
 describe('ZoomableG', () => {
+  it('should work without zoomState', () => {
+    const rawXScale = scaleLinear()
+      .domain([0, 1])
+      .range([0, 1]);
+    const rawYScale = scaleLinear()
+      .domain([0, 1])
+      .range([0, 1]);
+
+    const component = renderer.create(
+      <ZoomableG xScale={rawXScale} yScale={rawYScale}>{
+        ({ xScale, yScale }) => (
+          <g>
+            <text>{xScale.domain()}</text>
+            <text>{yScale.domain()}</text>
+          </g>
+        )
+      }</ZoomableG>);
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
   it('should work with props', () => {
     const rawXScale = scaleLinear()
       .domain([0, 1])

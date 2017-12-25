@@ -101,9 +101,21 @@ export default class ZoomableG extends Component {
   }
 
   buildScales() {
-    if (!this.node) return this.props;
-    const t = d3.zoomTransform(this.node);
     const { xScale, yScale } = this.props;
+
+    let t;
+    if (this.node) {
+      t = d3.zoomTransform(this.node);
+    } else {
+      // First render case, no node ref yet. Use default or provided zoomState
+      // to calculate zoomed scales.
+      const { zoomState } = this.props;
+      const [x, y] = GenerateZoomTranslate(this.props, zoomState);
+      t = d3.zoomIdentity
+        .translate(x, y)
+        .scale(zoomState.scale);
+    }
+
     return {
       xScale: t.rescaleX(xScale),
       yScale: t.rescaleY(yScale),
