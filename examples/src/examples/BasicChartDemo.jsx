@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { line } from 'd3-shape';
 
-import ZoomableChart from '../components/ZoomableChart';
-import CalculateExtents from '../utilities/extents/CalculateExtents';
+import { components, utilities } from 'react-chart-engine';
+const { BasicChart } = components;
+const { CalculateExtents } = utilities;
 
-export default class ZoomDemoChart extends Component {
+export default class BasicChartDemo extends Component {
   constructor(props) {
     super(props);
 
@@ -17,19 +18,10 @@ export default class ZoomDemoChart extends Component {
       { id: 3, x: 10, y: 6 },
       { id: 4, x: 15, y: 12 },
     ];
-
-    // Let's restore previously saved zoomState
-    this.zoomState = {
-      center: {
-        x: 0.5,
-        y: 0.5,
-      },
-      scale: 3,
-    };
   }
 
   render() {
-    const { data, zoomState } = this;
+    const { data } = this;
 
     // Chart knows its size and passed it to scales.
     // To configure scales we need to know input data domain.
@@ -47,46 +39,28 @@ export default class ZoomDemoChart extends Component {
     // In this example data is structured like this already, but in real app
     // you'll have to transform your data.
 
-    const limits = {
-      x: [-Infinity, Infinity],
-      y: [-Infinity, Infinity],
-    };
-
-    const onZoomStateChange = (newZoomState) => {
-      console.log('Zoomed', newZoomState);
-      this.zoomState = newZoomState;
-    };
-
     return (
-      <ZoomableChart
-        xDomain={x}
-        yDomain={y}
-        minScaleFactor={0.5}
-        maxScaleFactor={4}
-        limits={limits}
-        zoomState={zoomState}
-        onZoomStateChange={onZoomStateChange}
-      >{
-        // ZoomableChart's child is function, receiving renderContext
-        // from ZoomableChart and using its contents
+      <BasicChart xDomain={x} yDomain={y}>{
+        // BasicChart's child is function, receiving renderContext
+        // from BasicChart and using its contents
         // to render chart elements:
         ({ xScale, yScale }) => {
           const path = line()
             .x(d => xScale(d.x))
             .y(d => yScale(d.y));
-
           return (
             <g>
               <g key="circles">
                 {data.map(d =>
-                  <circle r={5} cx={xScale(d.x)} cy={yScale(d.y)} key={d.id} />,
+                  <circle r={5} cx={xScale(d.x)} cy={yScale(d.y)} key={d.id}/>,
                 )}
               </g>
-              <path key="line" fill="none" stroke="#555" d={path(data)} />
+              <path key="line" fill="none" stroke="#555" d={path(data)}/>
+              ;
             </g>
-          );
+          )
         }
-      }</ZoomableChart>
+      }</BasicChart>
     );
   }
 }

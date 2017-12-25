@@ -1398,10 +1398,6 @@ d3-interpolate@1:
   dependencies:
     d3-color "1"
 
-d3-path@1:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/d3-path/-/d3-path-1.0.5.tgz#241eb1849bd9e9e8021c0d0a799f8a0e8e441764"
-
 d3-scale@^1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-1.0.6.tgz#bce19da80d3a0cf422c9543ae3322086220b34ed"
@@ -1417,12 +1413,6 @@ d3-scale@^1.0.5:
 d3-selection@1:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.0.5.tgz#948c73b41a44e28d1742ae2ff207c2aebca2734b"
-
-d3-shape@^1.0.6:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/d3-shape/-/d3-shape-1.2.0.tgz#45d01538f064bafd05ea3d6d2cb748fd8c41f777"
-  dependencies:
-    d3-path "1"
 
 d3-time-format@2:
   version "2.1.0"
@@ -2797,10 +2787,6 @@ lodash.clonedeep@^3.0.0:
   dependencies:
     lodash._baseclone "^3.0.0"
     lodash._bindcallback "^3.0.0"
-
-lodash.flatten@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"
