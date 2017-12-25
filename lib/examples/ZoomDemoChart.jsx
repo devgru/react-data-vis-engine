@@ -8,8 +8,8 @@ export default class ZoomDemoChart extends Component {
   constructor(props) {
     super(props);
 
-    // В приложении данные могут приходить как props или храниться в state компонента.
-    // Здесь просто храним во внутреннем поле:
+    // In real app you receive data as props.
+    // Here we store them in an array:
     this.data = [
       { id: 0, x: -5, y: 4 },
       { id: 1, x: 5, y: 10 },
@@ -18,7 +18,7 @@ export default class ZoomDemoChart extends Component {
       { id: 4, x: 15, y: 12 },
     ];
 
-    // Восстанавливаем сохранённый zoomState
+    // Let's restore previously saved zoomState
     this.zoomState = {
       center: {
         x: 0.5,
@@ -31,21 +31,21 @@ export default class ZoomDemoChart extends Component {
   render() {
     const { data, zoomState } = this;
 
-    // График знает свои размеры и передаёт их в шкалу.
-    // Но помимо размеров в пикселях графику необходимо знать разброс входных значений.
+    // Chart knows its size and passed it to scales.
+    // To configure scales we need to know input data domain.
     //
-    // Самый простой способ расчитать разброс — такой код:
+    // Simplest way to calculate them is:
     // import { extent } form 'd3-array';
     // const x = extent(data.map((d) => d.x));
     // const y = extent(data.map((d) => d.y));
 
-    // Однако, для того чтобы значения не «прилипали» к краям рабочей области графика,
-    // мы добавляем к ним отступы в 10-15% от разброса.
-    // В проекте для этого есть утилита, CalculateExtents:
+    // However, sometimes we need some paddings (like 10-15% of domain size).
+    // There is utility for this, CalculateExtents:
     const { x, y } = CalculateExtents(data, 0.1);
-    // Особенность использования — утилита принимает на вход массив объектов с полями x, y.
-    // В данном примере данные и так имеют такую структуру, однако в реальности
-    // может потребоваться дополнительное преобразование.
+    // Please mind that this utility receives array of objects with x and y fields,
+    // returning one object with x and y fields.
+    // In this example data is structured like this already, but in real app
+    // you'll have to transform your data.
 
     const limits = {
       x: [-Infinity, Infinity],
@@ -67,9 +67,9 @@ export default class ZoomDemoChart extends Component {
         zoomState={zoomState}
         onZoomStateChange={onZoomStateChange}
       >{
-        // В качестве потомка в элемент ZoomableChart передаётся функция.
-        // Функция получает renderContext от ZoomableChart и используя его содержимое
-        // может отрисовывать произвольные элементы:
+        // ZoomableChart's child is function, receiving renderContext
+        // from ZoomableChart and using its contents
+        // to render chart elements:
         ({ xScale, yScale }) => {
           const path = line()
             .x(d => xScale(d.x))

@@ -10,8 +10,8 @@ class ZoomDemoChart extends Component {
   constructor(props) {
     super(props);
 
-    // В приложении данные могут приходить как props или храниться в state компонента.
-    // Здесь просто храним во внутреннем поле:
+    // In real app you receive data as props.
+    // Here we store them in an array:
     this.data = [
       { id: 0, x: -5, y: 4 },
       { id: 1, x: 5, y: 10 },
@@ -20,7 +20,7 @@ class ZoomDemoChart extends Component {
       { id: 4, x: 15, y: 12 },
     ];
 
-    // Восстанавливаем сохранённый zoomState
+    // Let's restore previously saved zoomState
     this.zoomState = {
       center: {
         x: 0.5,
@@ -59,9 +59,9 @@ class ZoomDemoChart extends Component {
         zoomState={zoomState}
         onZoomStateChange={onZoomStateChange}
       >{
-        // В качестве потомка в элемент ZoomableChart передаётся функция.
-        // Функция получает renderContext от ZoomableChart и используя его содержимое
-        // может отрисовывать произвольные элементы:
+        // ZoomableChart's child is function, receiving renderContext
+        // from ZoomableChart and using its contents
+        // to render chart elements:
         ({ xScale, yScale }) => {
           const path = line()
             .x(d => xScale(d.x))
@@ -83,14 +83,11 @@ class ZoomDemoChart extends Component {
   }
 }
 
-
-const Z = ZoomDemoChart;
-
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Z id="asd" />
+        <ZoomDemoChart id="asd" />
       </div>
     );
   }
