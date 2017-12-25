@@ -81,7 +81,7 @@ export default class ZoomableChart extends Component {
               let chart;
               let back;
               let front;
-              if (renderedChildren.chart) {
+              if (renderedChildren && renderedChildren.chart) {
                 chart = renderedChildren.chart;
                 back = renderedChildren.back;
                 front = renderedChildren.front;
