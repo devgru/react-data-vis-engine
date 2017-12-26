@@ -6,7 +6,7 @@ import { select } from 'd3-selection';
 import LimitZoomState from '../utilities/zoom/LimitZoomState';
 import ZoomLimitsReached from '../utilities/zoom/ZoomLimitsReached';
 import GenerateZoomObject from '../utilities/zoom/GenerateZoomObject';
-import GenerateZoomTranslate from '../utilities/zoom/GenerateZoomTranslate';
+import GenerateZoomTransform from '../utilities/zoom/GenerateZoomTransform';
 
 function areTransformsEqual(t1, t2) {
   return t1.k === t2.k &&
@@ -24,7 +24,7 @@ export default class ZoomableG extends Component {
   constructor(props) {
     super(props);
 
-    this.d3Zoom = d3.zoom()
+    this.d3ZoomBehavior = d3.zoom()
       .on('zoom', () => requestAnimationFrame(() => {
         this.fitZoomIntoLimitsAndUpdateState();
         this.forceUpdate();
@@ -37,7 +37,7 @@ export default class ZoomableG extends Component {
     this.node = node;
     if (node) {
       this.d3Node = select(node);
-      this.d3Node.call(this.d3Zoom);
+      this.d3Node.call(this.d3ZoomBehavior);
       this.applyZoomState(this.props.zoomState)
     }
   };
@@ -49,7 +49,7 @@ export default class ZoomableG extends Component {
   applyProps(props) {
     const { minScaleFactor, maxScaleFactor, zoomState } = props;
 
-    this.d3Zoom
+    this.d3ZoomBehavior
       .scaleExtent([minScaleFactor, maxScaleFactor]);
 
     this.applyZoomState(zoomState);
@@ -84,14 +84,11 @@ export default class ZoomableG extends Component {
 
   applyZoomState(zoomState) {
     if (this.d3Node) {
-      const [x, y] = GenerateZoomTranslate(this.props, zoomState);
-      const newTransform = d3.zoomIdentity
-        .translate(x, y)
-        .scale(zoomState.scale);
+      const newTransform = GenerateZoomTransform(this.props, zoomState);
+      const currentTransform = d3.zoomTransform(this.node);
 
-      const transform = d3.zoomTransform(this.node);
-      if (!areTransformsEqual(transform, newTransform)) {
-        this.d3Zoom
+      if (!areTransformsEqual(currentTransform, newTransform)) {
+        this.d3ZoomBehavior
           .transform(
             this.d3Node,
             newTransform,
@@ -109,11 +106,7 @@ export default class ZoomableG extends Component {
     } else {
       // First render case, no node ref yet. Use default or provided zoomState
       // to calculate zoomed scales.
-      const { zoomState } = this.props;
-      const [x, y] = GenerateZoomTranslate(this.props, zoomState);
-      t = d3.zoomIdentity
-        .translate(x, y)
-        .scale(zoomState.scale);
+      t = GenerateZoomTransform(this.props, this.props.zoomState);
     }
 
     return {
