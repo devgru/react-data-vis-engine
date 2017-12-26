@@ -6,7 +6,7 @@ import { select } from 'd3-selection';
 import LimitZoomState from '../utilities/zoom/LimitZoomState';
 import ZoomLimitsReached from '../utilities/zoom/ZoomLimitsReached';
 import GenerateZoomObject from '../utilities/zoom/GenerateZoomObject';
-import GenerateZoomTransform from '../utilities/zoom/GenerateZoomTransform';
+import CalculateZoomTransform from '../utilities/zoom/CalculateZoomTransform';
 
 function areTransformsEqual(t1, t2) {
   return t1.k === t2.k &&
@@ -84,7 +84,7 @@ export default class ZoomableG extends Component {
 
   applyZoomState(zoomState) {
     if (this.d3Node) {
-      const newTransform = GenerateZoomTransform(this.props, zoomState);
+      const newTransform = CalculateZoomTransform(this.props, zoomState);
       const currentTransform = d3.zoomTransform(this.node);
 
       if (!areTransformsEqual(currentTransform, newTransform)) {
@@ -97,21 +97,24 @@ export default class ZoomableG extends Component {
     }
   }
 
-  buildScales() {
-    const { xScale, yScale } = this.props;
-
-    let t;
+  getCurrentZoomTransform() {
     if (this.node) {
-      t = d3.zoomTransform(this.node);
+      return d3.zoomTransform(this.node);
     } else {
       // First render case, no node ref yet. Use default or provided zoomState
       // to calculate zoomed scales.
-      t = GenerateZoomTransform(this.props, this.props.zoomState);
+      return CalculateZoomTransform(this.props, this.props.zoomState);
     }
+  }
+
+  buildScales() {
+    const { xScale, yScale } = this.props;
+
+    const zoomTransform = this.getCurrentZoomTransform();
 
     return {
-      xScale: t.rescaleX(xScale),
-      yScale: t.rescaleY(yScale),
+      xScale: zoomTransform.rescaleX(xScale),
+      yScale: zoomTransform.rescaleY(yScale),
     };
   }
 
