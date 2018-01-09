@@ -102,6 +102,7 @@ export default class ZoomableG extends Component {
     if (node) {
       this.d3Node = select(node);
       this.d3Node.call(this.d3ZoomBehavior);
+      this.applyZoomState(this.props.zoomState);
     }
   };
 
