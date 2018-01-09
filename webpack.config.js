@@ -1,7 +1,14 @@
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const fs = require('fs');
+
+const nodeModules = fs.readdirSync('node_modules');
+
 const externals = {};
+nodeModules.forEach((module) => {
+  externals[module] = module;
+});
 externals.react = 'react';
 externals.PropTypes = 'prop-types';
 
@@ -10,7 +17,7 @@ module.exports = {
   entry: './lib/index.js',
 
   output: {
-    path: `${path.join(__dirname)}`,
+    path: path.join(__dirname),
     filename: 'dist.js',
     libraryTarget: 'umd',
     library: 'ReactChartEngine',
