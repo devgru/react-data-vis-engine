@@ -65,7 +65,8 @@ export default class ZoomableChart extends Component {
       <FillParentSvg onSizeUpdate={onSizeUpdate}>
         <MarginG left={margin.left} top={margin.top}>
           <ZoomableG
-            xScale={rawXScale} yScale={rawYScale}
+            xScale={rawXScale}
+            yScale={rawYScale}
             {...zoomableGProps}
           >
             {({ xScale, yScale, mouseHandlerRef }) => {
@@ -82,9 +83,7 @@ export default class ZoomableChart extends Component {
               let back;
               let front;
               if (renderedChildren && renderedChildren.chart) {
-                chart = renderedChildren.chart;
-                back = renderedChildren.back;
-                front = renderedChildren.front;
+                ({ back, chart, front } = renderedChildren);
               } else {
                 chart = renderedChildren;
               }
@@ -100,7 +99,7 @@ export default class ZoomableChart extends Component {
                     width={innerWidth}
                     height={innerHeight}
                   />
-                  <ClipG id={chartId + '.clip'} width={innerWidth} height={innerHeight}>
+                  <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
                     <g ref={mouseHandlerRef}>
                       <rect width={innerWidth} height={innerHeight} style={backStyle} />
                       {chart}

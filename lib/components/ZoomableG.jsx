@@ -33,26 +33,8 @@ export default class ZoomableG extends Component {
     this.applyProps(props);
   }
 
-  ref = (node) => {
-    this.node = node;
-    if (node) {
-      this.d3Node = select(node);
-      this.d3Node.call(this.d3ZoomBehavior);
-      this.applyZoomState(this.props.zoomState)
-    }
-  };
-
   componentWillReceiveProps(nextProps) {
     this.applyProps(nextProps);
-  }
-
-  applyProps(props) {
-    const { minScaleFactor, maxScaleFactor, zoomState } = props;
-
-    this.d3ZoomBehavior
-      .scaleExtent([minScaleFactor, maxScaleFactor]);
-
-    this.applyZoomState(zoomState);
   }
 
   componentWillUnmount() {
@@ -67,19 +49,13 @@ export default class ZoomableG extends Component {
     );
   }
 
-  fitZoomIntoLimitsAndUpdateState() {
-    const scales = this.buildScales();
-    let zoomState;
-    if (ZoomLimitsReached(scales, this.props.limits)) {
-      LimitZoomState(scales, this.props.limits);
-      zoomState = this.getZoomState(scales);
-      this.applyZoomState(zoomState);
-    } else {
-      zoomState = this.getZoomState(scales);
+  getCurrentZoomTransform() {
+    if (this.node) {
+      return d3.zoomTransform(this.node);
     }
-    if (!areZoomStatesEqual(zoomState, this.props.zoomState)) {
-      this.props.onZoomStateChange(zoomState);
-    }
+    // First render case, no node ref yet. Use default or provided zoomState
+    // to calculate zoomed scales.
+    return CalculateZoomTransform(this.props, this.props.zoomState);
   }
 
   applyZoomState(zoomState) {
@@ -97,15 +73,37 @@ export default class ZoomableG extends Component {
     }
   }
 
-  getCurrentZoomTransform() {
-    if (this.node) {
-      return d3.zoomTransform(this.node);
+  fitZoomIntoLimitsAndUpdateState() {
+    const scales = this.buildScales();
+    let zoomState;
+    if (ZoomLimitsReached(scales, this.props.limits)) {
+      LimitZoomState(scales, this.props.limits);
+      zoomState = this.getZoomState(scales);
+      this.applyZoomState(zoomState);
     } else {
-      // First render case, no node ref yet. Use default or provided zoomState
-      // to calculate zoomed scales.
-      return CalculateZoomTransform(this.props, this.props.zoomState);
+      zoomState = this.getZoomState(scales);
+    }
+    if (!areZoomStatesEqual(zoomState, this.props.zoomState)) {
+      this.props.onZoomStateChange(zoomState);
     }
   }
+
+  applyProps(props) {
+    const { minScaleFactor, maxScaleFactor, zoomState } = props;
+
+    this.d3ZoomBehavior
+      .scaleExtent([minScaleFactor, maxScaleFactor]);
+
+    this.applyZoomState(zoomState);
+  }
+
+  ref = (node) => {
+    this.node = node;
+    if (node) {
+      this.d3Node = select(node);
+      this.d3Node.call(this.d3ZoomBehavior);
+    }
+  };
 
   buildScales() {
     const { xScale, yScale } = this.props;

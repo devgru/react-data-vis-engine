@@ -21,7 +21,9 @@ export default class BasicChart extends Component {
   }
 
   render() {
-    const { margin, xDomain, yDomain, xPadding, yPadding, children } = this.props;
+    const {
+      margin, xDomain, yDomain, xPadding, yPadding, children,
+    } = this.props;
 
     const innerWidth = this.state.width - margin.left - margin.right;
     const innerHeight = this.state.height - margin.top - margin.bottom;
@@ -56,7 +58,7 @@ export default class BasicChart extends Component {
             width={innerWidth}
             height={innerHeight}
           />
-          <ClipG id={chartId + '.clip'} width={innerWidth} height={innerHeight}>
+          <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
             {children(renderContext)}
           </ClipG>
         </MarginG>

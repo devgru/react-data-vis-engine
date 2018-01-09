@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ClipG({ id, width, height, children }) {
+function ClipG({
+  id, width, height, children,
+}) {
   return (
     <g>
       <defs>
