@@ -5203,9 +5203,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-chart-engine@0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/react-chart-engine/-/react-chart-engine-0.0.14.tgz#205a3bad6192c18ad418a1ff59714132f5838f68"
+react-chart-engine@0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/react-chart-engine/-/react-chart-engine-0.0.17.tgz#28856e4497b6dd99fb68de37961ed0e43fdf9f3b"
   dependencies:
     d3-array "^1.1.1"
     d3-scale "^1.0.5"

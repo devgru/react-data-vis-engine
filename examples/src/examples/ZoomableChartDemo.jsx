@@ -56,6 +56,7 @@ export default class ZoomableChartDemo extends Component {
     const onZoomStateChange = (newZoomState) => {
       console.log('Zoomed', newZoomState);
       this.zoomState = newZoomState;
+      this.forceUpdate();
     };
 
     return (
