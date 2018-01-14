@@ -1,7 +1,7 @@
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
 const fs = require('fs');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const nodeModules = fs.readdirSync('node_modules');
 
@@ -14,7 +14,7 @@ externals.PropTypes = 'prop-types';
 
 module.exports = {
   context: path.join(__dirname),
-  entry: './lib/index.js',
+  entry: './src/lib/index.js',
 
   output: {
     path: path.join(__dirname),
@@ -23,31 +23,33 @@ module.exports = {
     library: 'ReactChartEngine',
   },
 
-  plugins: [/* new BundleAnalyzerPlugin({
-    analyzerMode: 'server',
-    // Host that will be used in `server` mode to start HTTP server.
-    analyzerHost: '127.0.0.1',
-    // Port that will be used in `server` mode to start HTTP server.
-    analyzerPort: 8888,
-  }) */],
+  plugins: [
+    new UglifyJsPlugin(),
+    /* new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      // Host that will be used in `server` mode to start HTTP server.
+      analyzerHost: '127.0.0.1',
+      // Port that will be used in `server` mode to start HTTP server.
+      analyzerPort: 8888,
+    }) */
+  ],
 
   externals,
 
   resolve: {
-    extensions: [
-      '', '.js', '.jsx',
+    modules: [
+      path.resolve('./node_modules'),
+      path.resolve('./src/lib/'),
     ],
+    extensions: ['.jsx', '.js'],
   },
 
   module: {
-    loaders: [
+    rules: [
       {
-        test: /(\.js|jsx)$/,
-        exclude: /node_modules/,
+        test: /(\.jsx|\.js)$/,
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'stage-2', 'react'],
-        },
+        exclude: /(node_modules|bower_components)/,
       },
     ],
   },

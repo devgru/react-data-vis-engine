@@ -15,4 +15,4 @@ $ npm install --save react-chart-engine
 
 ## Docs
 
-Exported components are described in [docs/components](./docs/components) directory. Use `ZoomableChart` or `BasicChart` components to build charts, as shown in [examples/src](./examples/src).
+Exported components are described in [docs/components](./docs/components) directory. Use `ZoomableChart` or `BasicChart` components to build charts, as shown in [src/examples](./src/examples).

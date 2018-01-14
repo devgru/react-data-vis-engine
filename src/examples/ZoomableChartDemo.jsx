@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { line } from 'd3-shape';
 
-import { components, utilities } from 'react-chart-engine';
-const { ZoomableChart } = components;
-const { CalculateExtents } = utilities;
+import ZoomableChart from '../lib/components/ZoomableChart';
+import CalculateExtents from '../lib/utilities/extents/CalculateExtents';
 
 export default class ZoomableChartDemo extends Component {
   constructor(props) {

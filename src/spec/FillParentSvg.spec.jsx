@@ -20,14 +20,14 @@ describe('FillParentSvg', () => {
       {createNodeMock});
     expect(component.toJSON()).toMatchSnapshot();
   });
-  
+
   it('should pass props', () => {
     const component = renderer.create(
       <FillParentSvg class="my-svg"/>,
       {createNodeMock});
     expect(component.toJSON()).toMatchSnapshot();
   });
-  
+
   it('should report its size', () => {
     let svgSize;
     renderer.create(

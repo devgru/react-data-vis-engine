@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import DemoChart from './examples/BasicChartDemo';
-import ZoomDemoChart from './examples/ZoomableChartDemo';
+import DemoChart from './BasicChartDemo';
+import ZoomDemoChart from './ZoomableChartDemo';
 
 class App extends Component {
   render() {

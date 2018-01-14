@@ -1,15 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`ClipG should work with props 1`] = `
 <g>
   <defs>
     <clipPath
-      id="clip">
+      id="clip"
+    >
       <rect
         height={100}
-        width={100} />
+        width={100}
+      />
     </clipPath>
   </defs>
   <g
-    clipPath="url(#clip)">
+    clipPath="url(#clip)"
+  >
     <circle />
   </g>
 </g>

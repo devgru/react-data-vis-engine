@@ -1,4 +1,3 @@
-import ClipG from '../lib/components/ClipG';
 import ZoomableG from '../lib/components/ZoomableG';
 
 import React from 'react';

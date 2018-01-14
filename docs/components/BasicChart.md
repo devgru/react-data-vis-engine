@@ -2,7 +2,7 @@
 
 Renders basic chart in `svg` element with axes, borders, pseudo-grid and paddings.
 
-[Component usage example](../../lib/examples/DemoChart.jsx).
+[Component usage example](../../src/examples/BasicChartDemo.jsx).
 
 ## Children
 

@@ -11,7 +11,7 @@ describe('MarginG', () => {
       </MarginG>);
     expect(component.toJSON()).toMatchSnapshot();
   });
-  
+
   it('should work with props', () => {
     const component = renderer.create(
       <MarginG top={10} left={10}>

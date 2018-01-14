@@ -2,7 +2,7 @@
 
 Renders zoomable chart in `svg` element with axes, borders, pseudo-grid and paddings.
 
-[Component usage example](../../lib/examples/ZoomDemoChart.jsx).
+[Component usage example](../../src/examples/ZoomableChartDemo.jsx).
 
 ## Children
 
