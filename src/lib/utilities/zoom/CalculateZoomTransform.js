@@ -4,7 +4,8 @@ import Diff from '../common/Diff';
 
 const isRangeDescending = ([a, b]) => a > b;
 
-export default function CalculateZoomTransform({ xScale, yScale }, { scale, center }) {
+export default function CalculateZoomTransform({ xScale, yScale, zoomState }) {
+  const { scale, center } = zoomState;
   const xRange = xScale.range();
   const yRange = yScale.range();
   const { x, y } = center;

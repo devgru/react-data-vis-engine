@@ -8,16 +8,22 @@ import ZoomLimitsReached from '../utilities/zoom/ZoomLimitsReached';
 import GenerateZoomObject from '../utilities/zoom/GenerateZoomObject';
 import CalculateZoomTransform from '../utilities/zoom/CalculateZoomTransform';
 
+const epsilon = 0.0001;
+
+function nearlyEquals(a, b) {
+  return Math.abs(a - b) < epsilon;
+}
+
 function areTransformsEqual(t1, t2) {
-  return t1.k === t2.k &&
-    t1.x === t2.x &&
-    t1.y === t2.y;
+  return nearlyEquals(t1.k, t2.k) &&
+    nearlyEquals(t1.x, t2.x) &&
+    nearlyEquals(t1.y, t2.y);
 }
 
 function areZoomStatesEqual(z1, z2) {
-  return z1.scale === z2.scale &&
-    z1.center.x === z2.center.x &&
-    z1.center.y === z2.center.y;
+  return nearlyEquals(z1.scale, z2.scale) &&
+    nearlyEquals(z1.center.x, z2.center.x) &&
+    nearlyEquals(z1.center.y, z2.center.y);
 }
 
 export default class ZoomableG extends Component {
@@ -55,21 +61,22 @@ export default class ZoomableG extends Component {
     }
     // First render case, no node ref yet. Use default or provided zoomState
     // to calculate zoomed scales.
-    return CalculateZoomTransform(this.props, this.props.zoomState);
+    return CalculateZoomTransform(this.props);
   }
 
-  applyZoomState(zoomState) {
-    if (this.d3Node) {
-      const newTransform = CalculateZoomTransform(this.props, zoomState);
-      const currentTransform = d3.zoomTransform(this.node);
+  applyZoomState(props) {
+    if (!this.d3Node) {
+      return;
+    }
+    const newTransform = CalculateZoomTransform(props);
+    const currentTransform = d3.zoomTransform(this.node);
 
-      if (!areTransformsEqual(currentTransform, newTransform)) {
-        this.d3ZoomBehavior
-          .transform(
-            this.d3Node,
-            newTransform,
-          );
-      }
+    if (!areTransformsEqual(currentTransform, newTransform)) {
+      this.d3ZoomBehavior
+        .transform(
+          this.d3Node,
+          newTransform,
+        );
     }
   }
 
@@ -79,7 +86,10 @@ export default class ZoomableG extends Component {
     if (ZoomLimitsReached(scales, this.props.limits)) {
       LimitZoomState(scales, this.props.limits);
       zoomState = this.getZoomState(scales);
-      this.applyZoomState(zoomState);
+      this.applyZoomState({
+        ...this.props,
+        zoomState,
+      });
     } else {
       zoomState = this.getZoomState(scales);
     }
@@ -94,7 +104,7 @@ export default class ZoomableG extends Component {
     this.d3ZoomBehavior
       .scaleExtent([minScaleFactor, maxScaleFactor]);
 
-    this.applyZoomState(zoomState);
+    this.applyZoomState(props);
   }
 
   ref = (node) => {
@@ -102,7 +112,7 @@ export default class ZoomableG extends Component {
     if (node) {
       this.d3Node = select(node);
       this.d3Node.call(this.d3ZoomBehavior);
-      this.applyZoomState(this.props.zoomState);
+      this.applyZoomState(this.props);
     }
   };
 
