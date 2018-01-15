@@ -15,7 +15,7 @@ import CalculateZoomTransform from './utilities/zoom/CalculateZoomTransform';
 import LimitZoomState from './utilities/zoom/LimitZoomState';
 import ZoomLimitsReached from './utilities/zoom/ZoomLimitsReached';
 
-module.exports = {
+export default {
   components: {
     BasicAxes,
     BasicChart,
