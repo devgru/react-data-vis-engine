@@ -1,7 +1,7 @@
-import ClipG from '../lib/components/ClipG';
-
 import React from 'react';
 import renderer from 'react-test-renderer';
+
+import ClipG from '../lib/components/ClipG';
 
 describe('ClipG', () => {
   it('should work with props', () => {

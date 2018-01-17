@@ -1,7 +1,7 @@
-import FillParentSvg from '../lib/components/FillParentSvg';
-
 import React from 'react';
 import renderer from 'react-test-renderer';
+
+import FillParentSvg from '../lib/components/FillParentSvg';
 
 const createNodeMock = e => {
   if (e.type === 'svg') {

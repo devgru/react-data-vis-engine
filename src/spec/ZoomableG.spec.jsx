@@ -1,8 +1,8 @@
-import ZoomableG from '../lib/components/ZoomableG';
-
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {scaleLinear} from 'd3-scale';
+
+import ZoomableG from '../lib/components/ZoomableG';
 
 describe('ZoomableG', () => {
   it('should work without zoomState', () => {

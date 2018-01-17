@@ -1,7 +1,7 @@
-import MarginG from '../lib/components/MarginG';
-
 import React from 'react';
 import renderer from 'react-test-renderer';
+
+import MarginG from '../lib/components/MarginG';
 
 describe('MarginG', () => {
   it('should initialize at all', () => {
