@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { line } from 'd3-shape';
 
-import BasicChart from '../lib/components/BasicChart';
-import CalculateExtents from '../lib/utilities/extents/CalculateExtents';
+import { BasicChart, CalculateExtents } from '../lib';
 
 export default class BasicChartDemo extends Component {
   constructor(props) {

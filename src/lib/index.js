@@ -15,6 +15,25 @@ import CalculateZoomTransform from './utilities/zoom/CalculateZoomTransform';
 import LimitZoomState from './utilities/zoom/LimitZoomState';
 import ZoomLimitsReached from './utilities/zoom/ZoomLimitsReached';
 
+export {
+  BasicAxes,
+  BasicChart,
+  ClipG,
+  FillParentSvg,
+  MarginG,
+  ZoomableG,
+  ZoomableChart,
+
+  Diff,
+  UniqueId,
+  CalculateExtents,
+  GenerateZoomCenter,
+  GenerateZoomObject,
+  CalculateZoomTransform,
+  LimitZoomState,
+  ZoomLimitsReached,
+};
+
 export default {
   components: {
     BasicAxes,
