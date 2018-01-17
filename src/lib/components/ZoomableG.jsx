@@ -33,7 +33,6 @@ export default class ZoomableG extends Component {
     this.d3ZoomBehavior = d3.zoom()
       .on('zoom', () => requestAnimationFrame(() => {
         this.fitZoomIntoLimitsAndUpdateState();
-        this.forceUpdate();
       }));
 
     this.applyProps(props);
@@ -56,6 +55,7 @@ export default class ZoomableG extends Component {
   }
 
   getCurrentZoomTransform() {
+    // General case
     if (this.node) {
       return d3.zoomTransform(this.node);
     }
@@ -99,7 +99,7 @@ export default class ZoomableG extends Component {
   }
 
   applyProps(props) {
-    const { minScaleFactor, maxScaleFactor, zoomState } = props;
+    const { minScaleFactor, maxScaleFactor } = props;
 
     this.d3ZoomBehavior
       .scaleExtent([minScaleFactor, maxScaleFactor]);
