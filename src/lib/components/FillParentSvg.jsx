@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import clone from 'lodash.clone';
 
 export default class FillParentSvg extends Component {
   componentDidMount() {
@@ -24,7 +23,7 @@ export default class FillParentSvg extends Component {
   };
 
   render() {
-    const svgProps = clone(this.props);
+    const svgProps = { ...this.props };
     delete svgProps.onSizeUpdate;
     delete svgProps.children;
 
