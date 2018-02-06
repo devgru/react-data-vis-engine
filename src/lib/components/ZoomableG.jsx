@@ -93,7 +93,7 @@ export default class ZoomableG extends Component {
     }
   }
 
-  ref = (node) => {
+  mouseHandlerRef = (node) => {
     this.node = node;
     if (node) {
       this.d3Node = select(node);
@@ -122,7 +122,7 @@ export default class ZoomableG extends Component {
     this.applyZoomState(this.props);
 
     const renderContext = {
-      mouseHandlerRef: this.ref,
+      mouseHandlerRef: this.mouseHandlerRef,
       ...this.buildScales(),
     };
     return <g>{children(renderContext)}</g>;
