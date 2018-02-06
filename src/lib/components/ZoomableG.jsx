@@ -34,12 +34,6 @@ export default class ZoomableG extends Component {
       .on('zoom', () => requestAnimationFrame(() => {
         this.fitZoomIntoLimitsAndUpdateState();
       }));
-
-    this.applyProps(props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.applyProps(nextProps);
   }
 
   componentWillUnmount() {
@@ -98,15 +92,6 @@ export default class ZoomableG extends Component {
     }
   }
 
-  applyProps(props) {
-    const { minScaleFactor, maxScaleFactor } = props;
-
-    this.d3ZoomBehavior
-      .scaleExtent([minScaleFactor, maxScaleFactor]);
-
-    this.applyZoomState(props);
-  }
-
   ref = (node) => {
     this.node = node;
     if (node) {
@@ -128,11 +113,18 @@ export default class ZoomableG extends Component {
   }
 
   render() {
+    const { minScaleFactor, maxScaleFactor, children } = this.props;
+
+    this.d3ZoomBehavior
+      .scaleExtent([minScaleFactor, maxScaleFactor]);
+
+    this.applyZoomState(this.props);
+
     const renderContext = {
       mouseHandlerRef: this.ref,
       ...this.buildScales(),
     };
-    return <g>{this.props.children(renderContext)}</g>;
+    return <g>{children(renderContext)}</g>;
   }
 }
 
