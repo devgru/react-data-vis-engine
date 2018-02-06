@@ -75,10 +75,11 @@ export default class ZoomableG extends Component {
   }
 
   fitZoomIntoLimitsAndUpdateState() {
+    const { limits } = this.props;
     const scales = this.buildScales();
     let zoomState;
-    if (ZoomLimitsReached(scales, this.props.limits)) {
-      LimitZoomState(scales, this.props.limits);
+    if (ZoomLimitsReached(scales, limits)) {
+      LimitZoomState(scales, limits);
       zoomState = this.getZoomState(scales);
       this.applyZoomState({
         ...this.props,
