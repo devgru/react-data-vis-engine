@@ -1,7 +1,14 @@
-.App {
+.App, .App-demo {
   height: 100%;
 }
 
 .App-chart {
   height: 50%;
+  position: relative;
+}
+
+.App-controls {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
