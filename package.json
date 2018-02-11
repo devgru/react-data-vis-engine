@@ -1,6 +1,6 @@
 {
-  "name": "react-chart-engine",
-  "version": "0.0.22",
+  "name": "react-data-vis-engine",
+  "version": "0.0.23",
   "description": "",
   "author": "Dmitriy Semyushkin <git@devg.ru> (https://devg.ru)",
   "license": "MIT",
@@ -8,7 +8,7 @@
     "dist.js",
     "index.d.ts"
   ],
-  "repository": "devgru/react-chart-engine",
+  "repository": "devgru/react-data-vis-engine",
   "main": "dist.js",
   "dependencies": {
     "d3-array": "1",
