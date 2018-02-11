@@ -47,7 +47,7 @@ export default class ZoomableChartDemo extends Component {
     // you'll have to transform your data.
 
     const limits = {
-      x: [-Infinity, Infinity],
+      x: [-10, 20],
       y: [-Infinity, Infinity],
     };
 
@@ -58,35 +58,47 @@ export default class ZoomableChartDemo extends Component {
     };
 
     return (
-      <ZoomableChart
-        xDomain={x}
-        yDomain={y}
-        minScaleFactor={0.5}
-        maxScaleFactor={4}
-        limits={limits}
-        zoomState={zoomState}
-        onZoomStateChange={onZoomStateChange}
-      >{
-        // ZoomableChart's child is function, receiving renderContext
-        // from ZoomableChart and using its contents
-        // to render chart elements:
-        ({ xScale, yScale }) => {
-          const path = line()
-            .x(d => xScale(d.x))
-            .y(d => yScale(d.y));
+      <div className="App-demo">
+        <div className="App-controls">
+          <button onClick={() => onZoomStateChange({
+            ...this.zoomState,
+            scale: this.zoomState.scale + 1,
+          })}>+</button>
+          <button onClick={() => onZoomStateChange({
+            ...this.zoomState,
+            scale: this.zoomState.scale - 1,
+          })}>-</button>
+        </div>
+        <ZoomableChart
+          xDomain={x}
+          yDomain={y}
+          minScaleFactor={0.5}
+          maxScaleFactor={4}
+          limits={limits}
+          zoomState={zoomState}
+          onZoomStateChange={onZoomStateChange}
+        >{
+          // ZoomableChart's child is function, receiving renderContext
+          // from ZoomableChart and using its contents
+          // to render chart elements:
+          ({ xScale, yScale }) => {
+            const path = line()
+              .x(d => xScale(d.x))
+              .y(d => yScale(d.y));
 
-          return (
-            <g>
-              <g key="circles">
-                {data.map(d =>
-                  <circle r={5} cx={xScale(d.x)} cy={yScale(d.y)} key={d.id} />,
-                )}
+            return (
+              <g>
+                <g key="circles">
+                  {data.map(d =>
+                    <circle r={5} cx={xScale(d.x)} cy={yScale(d.y)} key={d.id} />,
+                  )}
+                </g>
+                <path key="line" fill="none" stroke="#555" d={path(data)} />
               </g>
-              <path key="line" fill="none" stroke="#555" d={path(data)} />
-            </g>
-          );
-        }
-      }</ZoomableChart>
+            );
+          }
+        }</ZoomableChart>
+      </div>
     );
   }
 }
