@@ -11,15 +11,23 @@ export default class FillParentSvg extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
 
+  getVisContext() {
+    return {
+      width: this.node.clientWidth,
+      height: this.node.clientHeight,
+    };
+  }
+
   ref = (node) => {
     this.node = node;
   };
 
   handleResize = () => {
-    this.props.onSizeUpdate({
-      width: this.node.clientWidth,
-      height: this.node.clientHeight,
-    });
+    if (this.props.onSizeUpdate) {
+      this.props.onSizeUpdate(this.getVisContext());
+    } else {
+      this.forceUpdate();
+    }
   };
 
   render() {
@@ -32,21 +40,33 @@ export default class FillParentSvg extends Component {
       width: '100%',
       height: '100%',
     };
+
+    const drawChildren = () => {
+      const { children } = this.props;
+      if (typeof children === 'function') {
+        return children(this.getVisContext());
+      }
+
+      return children;
+    };
+
     return (
       <svg {...svgProps} >
-        {this.node && this.props.children}
+        {this.node && drawChildren()}
       </svg>
     );
   }
 }
 
 FillParentSvg.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.func,
+  ]),
 
   onSizeUpdate: PropTypes.instanceOf(Function),
 };
 
 FillParentSvg.defaultProps = {
-  onSizeUpdate: () => {},
   children: null,
 };

@@ -18,12 +18,7 @@ const backStyle = {
 export default class ZoomableChart extends Component {
   constructor(props) {
     super(props);
-    const id = props.id.length === 0 ? UniqueId() : props.id;
-    this.state = {
-      id,
-      width: 500,
-      height: 300,
-    };
+    this.id = props.id.length === 0 ? UniqueId() : props.id;
   }
 
   render() {
@@ -47,71 +42,72 @@ export default class ZoomableChart extends Component {
       onZoomStateChange,
     };
 
-    const innerWidth = this.state.width - margin.left - margin.right;
-    const innerHeight = this.state.height - margin.top - margin.bottom;
-    const chartId = this.state.id;
-
-    const onSizeUpdate = (size) => {
-      this.setState(size);
-    };
-    const rawXScale = scaleLinear()
-      .domain(xDomain)
-      .range([0, innerWidth]);
-    const rawYScale = scaleLinear()
-      .domain(yDomain)
-      .range([innerHeight, 0]);
-
     return (
-      <FillParentSvg onSizeUpdate={onSizeUpdate}>
-        <MarginG left={margin.left} top={margin.top}>
-          <ZoomableG
-            xScale={rawXScale}
-            yScale={rawYScale}
-            {...zoomableGProps}
-          >
-            {({ xScale, yScale, mouseHandlerRef }) => {
-              const renderContext = {
-                ...this.state,
-                xScale,
-                yScale,
-                innerWidth,
-                innerHeight,
-              };
+      <FillParentSvg>{({ width, height }) => {
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const chartId = this.id;
 
-              const renderedChildren = children(renderContext);
-              let chart;
-              let back;
-              let front;
-              if (renderedChildren && renderedChildren.chart) {
-                ({ back, chart, front } = renderedChildren);
-              } else {
-                chart = renderedChildren;
-              }
+        const rawXScale = scaleLinear()
+          .domain(xDomain)
+          .range([0, innerWidth]);
+        const rawYScale = scaleLinear()
+          .domain(yDomain)
+          .range([innerHeight, 0]);
 
-              return (
-                <g>
-                  {back}
-                  <BasicAxes
-                    xScale={xScale}
-                    yScale={yScale}
-                    xPadding={xPadding}
-                    yPadding={yPadding}
-                    width={innerWidth}
-                    height={innerHeight}
-                  />
-                  <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
-                    <g ref={mouseHandlerRef}>
-                      <rect width={innerWidth} height={innerHeight} style={backStyle} />
-                      {chart}
-                    </g>
-                  </ClipG>
-                  {front}
-                </g>
-              );
-            }}
-          </ZoomableG>
-        </MarginG>
-      </FillParentSvg>
+        return (
+          <MarginG left={margin.left} top={margin.top}>
+            <ZoomableG
+              xScale={rawXScale}
+              yScale={rawYScale}
+              {...zoomableGProps}
+            >
+              {({ xScale, yScale, mouseHandlerRef }) => {
+                const renderContext = {
+                  chartId,
+                  width,
+                  height,
+                  xScale,
+                  yScale,
+                  innerWidth,
+                  innerHeight,
+                };
+
+                const renderedChildren = children(renderContext);
+                let chart;
+                let back;
+                let front;
+                if (renderedChildren && renderedChildren.chart) {
+                  ({ back, chart, front } = renderedChildren);
+                } else {
+                  chart = renderedChildren;
+                }
+
+                return (
+                  <g>
+                    {back}
+                    <BasicAxes
+                      xScale={xScale}
+                      yScale={yScale}
+                      xPadding={xPadding}
+                      yPadding={yPadding}
+                      width={innerWidth}
+                      height={innerHeight}
+                    />
+                    <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
+                      <g ref={mouseHandlerRef}>
+                        <rect width={innerWidth} height={innerHeight} style={backStyle} />
+                        {chart}
+                      </g>
+                    </ClipG>
+                    {front}
+                  </g>
+                );
+              }}
+            </ZoomableG>
+          </MarginG>
+        );
+      }}</FillParentSvg>
     );
   }
 }
