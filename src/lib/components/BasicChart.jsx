@@ -32,7 +32,7 @@ export default class BasicChart extends Component {
           .domain(yDomain)
           .range([innerHeight, 0]);
 
-        const renderContext = {
+        const visContext = {
           chartId,
           xScale,
           yScale,
@@ -50,7 +50,7 @@ export default class BasicChart extends Component {
               height={innerHeight}
             />
             <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
-              {children(renderContext)}
+              {children(visContext)}
             </ClipG>
           </MarginG>
         );

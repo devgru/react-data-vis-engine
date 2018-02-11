@@ -78,7 +78,7 @@ export default class ZoomableChartDemo extends Component {
           zoomState={zoomState}
           onZoomStateChange={onZoomStateChange}
         >{
-          // ZoomableChart's child is function, receiving renderContext
+          // ZoomableChart's child is function, receiving visContext
           // from ZoomableChart and using its contents
           // to render chart elements:
           ({ xScale, yScale }) => {

@@ -63,7 +63,7 @@ export default class ZoomableChart extends Component {
               {...zoomableGProps}
             >
               {({ xScale, yScale, mouseHandlerRef }) => {
-                const renderContext = {
+                const visContext = {
                   chartId,
                   width,
                   height,
@@ -73,7 +73,7 @@ export default class ZoomableChart extends Component {
                   innerHeight,
                 };
 
-                const renderedChildren = children(renderContext);
+                const renderedChildren = children(visContext);
                 let chart;
                 let back;
                 let front;
