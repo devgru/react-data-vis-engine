@@ -1,4 +1,4 @@
-# react-chart-engine
+# react-data-vis-engine
 
 > Create React-based charts using [d3](https://d3js.org) utilities encapsulated in React elements.
 >
@@ -8,10 +8,12 @@
 ## Installing
 
 ```sh
-$ yarn add react-chart-engine
+$ yarn add react-data-vis-engine
 # or
-$ npm install --save react-chart-engine
+$ npm install --save react-data-vis-engine
 ```
+
+Versions prior to 0.0.23 were published under name `react-chart-engine`.
 
 ## Docs
 

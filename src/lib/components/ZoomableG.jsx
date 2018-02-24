@@ -123,11 +123,11 @@ export default class ZoomableG extends Component {
 
     this.applyZoomState(this.props);
 
-    const renderContext = {
+    const visContext = {
       mouseHandlerRef: this.mouseHandlerRef,
       ...this.buildScales(),
     };
-    return <g>{children(renderContext)}</g>;
+    return <g>{children(visContext)}</g>;
   }
 }
 

@@ -12,12 +12,7 @@ import UniqueId from '../utilities/common/UniqueId';
 export default class BasicChart extends Component {
   constructor(props) {
     super(props);
-    const id = props.id.length === 0 ? UniqueId() : props.id;
-    this.state = {
-      id,
-      width: 500,
-      height: 300,
-    };
+    this.id = props.id.length === 0 ? UniqueId() : props.id;
   }
 
   render() {
@@ -25,44 +20,41 @@ export default class BasicChart extends Component {
       margin, xDomain, yDomain, xPadding, yPadding, children,
     } = this.props;
 
-    const innerWidth = this.state.width - margin.left - margin.right;
-    const innerHeight = this.state.height - margin.top - margin.bottom;
-    const chartId = this.state.id;
-    const xScale = scaleLinear()
-      .domain(xDomain)
-      .range([0, innerWidth]);
-    const yScale = scaleLinear()
-      .domain(yDomain)
-      .range([innerHeight, 0]);
-
-    const onSizeUpdate = (size) => {
-      this.setState(size);
-    };
-
-    const renderContext = {
-      ...this.state,
-      xScale,
-      yScale,
-      innerWidth,
-      innerHeight,
-    };
-
     return (
-      <FillParentSvg onSizeUpdate={onSizeUpdate}>
-        <MarginG left={margin.left} top={margin.top}>
-          <BasicAxes
-            xScale={xScale}
-            yScale={yScale}
-            xPadding={xPadding}
-            yPadding={yPadding}
-            width={innerWidth}
-            height={innerHeight}
-          />
-          <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
-            {children(renderContext)}
-          </ClipG>
-        </MarginG>
-      </FillParentSvg>
+      <FillParentSvg>{({ width, height }) => {
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const chartId = this.id;
+        const xScale = scaleLinear()
+          .domain(xDomain)
+          .range([0, innerWidth]);
+        const yScale = scaleLinear()
+          .domain(yDomain)
+          .range([innerHeight, 0]);
+
+        const visContext = {
+          chartId,
+          xScale,
+          yScale,
+          innerWidth,
+          innerHeight,
+        };
+        return (
+          <MarginG left={margin.left} top={margin.top}>
+            <BasicAxes
+              xScale={xScale}
+              yScale={yScale}
+              xPadding={xPadding}
+              yPadding={yPadding}
+              width={innerWidth}
+              height={innerHeight}
+            />
+            <ClipG id={`${chartId}.clip`} width={innerWidth} height={innerHeight}>
+              {children(visContext)}
+            </ClipG>
+          </MarginG>
+        );
+      }}</FillParentSvg>
     );
   }
 }

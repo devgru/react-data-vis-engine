@@ -39,7 +39,7 @@ export default class BasicChartDemo extends Component {
 
     return (
       <BasicChart xDomain={x} yDomain={y}>{
-        // BasicChart's child is function, receiving renderContext
+        // BasicChart's child is function, receiving visContext
         // from BasicChart and using its contents
         // to render chart elements:
         ({ xScale, yScale }) => {
