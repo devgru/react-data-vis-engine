@@ -7,6 +7,7 @@ import LimitZoomState from '../utilities/zoom/LimitZoomState';
 import ZoomLimitsReached from '../utilities/zoom/ZoomLimitsReached';
 import GenerateZoomObject from '../utilities/zoom/GenerateZoomObject';
 import CalculateZoomTransform from '../utilities/zoom/CalculateZoomTransform';
+import MinScaleFactor from '../utilities/zoom/MinScaleFactor';
 
 const epsilon = 0.0001;
 
@@ -114,7 +115,8 @@ export default class ZoomableG extends Component {
   }
 
   render() {
-    const { minScaleFactor, maxScaleFactor, children } = this.props;
+    const { maxScaleFactor, children } = this.props;
+    const minScaleFactor = MinScaleFactor(this.props);
 
     this.d3ZoomBehavior
       .scaleExtent([minScaleFactor, maxScaleFactor]);

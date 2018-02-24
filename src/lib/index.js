@@ -14,6 +14,7 @@ import GenerateZoomObject from './utilities/zoom/GenerateZoomObject';
 import CalculateZoomTransform from './utilities/zoom/CalculateZoomTransform';
 import LimitZoomState from './utilities/zoom/LimitZoomState';
 import ZoomLimitsReached from './utilities/zoom/ZoomLimitsReached';
+import MinScaleFactor from './utilities/zoom/MinScaleFactor';
 
 export {
   BasicAxes,
@@ -32,6 +33,7 @@ export {
   CalculateZoomTransform,
   LimitZoomState,
   ZoomLimitsReached,
+  MinScaleFactor,
 };
 
 export default {
