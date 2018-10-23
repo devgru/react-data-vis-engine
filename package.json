@@ -12,7 +12,7 @@
   "main": "dist.js",
   "dependencies": {
     "d3-array": "1",
-    "d3-scale": "1",
+    "d3-scale": "1 || 2",
     "d3-zoom": "1",
     "prop-types": "15",
     "react-d3-components": "^0.7.1"
